@@ -41,7 +41,7 @@ function make_metric(psi_grid, theta_grid, m_grid, ro, zo, rzphi)
     delta_m = (m_grid' .- m_grid)' # TODO: check this, I think m_grid might be a boolean and Julia might not like this
     fourfit_metric = Dict{String, Matrix{Complex{Float64}}}()
     for (name1, name2) in zip(fourfit_metric_names, metric_names) # TODO: This loop is a little funky, check it
-        metric_subset = metric[name2][:, 1:end] / (length(theta_grid) -1)
+        metric_subset = metric[name2][:, 1:end-1] / (length(theta_grid) -1)
         fourfit_metric[name1] = fft(metric_subset, 1)[:, delta_m]
     end
 
